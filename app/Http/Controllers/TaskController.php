@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Task;
 
 use App\Http\Requests;
 
 class TaskController extends Controller
 {
+    public function __constructor(){
+    $this->middleware('auth');
+}
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+       $tasks = Task::all();
+       return view('tasks.index',[
+           'tasks'=>$tasks,
+       ]);
     }
 
     /**
