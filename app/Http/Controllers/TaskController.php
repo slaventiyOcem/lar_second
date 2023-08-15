@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+
 
 class TaskController extends Controller
 {
@@ -32,7 +34,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create');
     }
 
     /**
@@ -43,7 +45,17 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name'=>'required|max:5',
+        ]);
+        $user = Auth::user();
+        $user->tasks()
+            ->create(
+            [
+                'name'=>$request->name,
+            ]
+        );
+        return redirect(route('tasks.index'));
     }
 
     /**
