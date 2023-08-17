@@ -10,9 +10,7 @@
                 <div class="panel-body">
                     <a href="{{route('tasks.create')}}" class="btn btn-success"><i class="fa fa-plus">Create new task</i></a>
                     <table class="table table striped task_table">
-                        <div class="panel-body">
 
-                        </div>
                         <thead>
 
                         <tr>
@@ -28,12 +26,20 @@
                                     <div>{{ $task->name }}</div>
                                 </td>
                                 <td>
-                                    <!--TODO кнопка удаления-->
+                                    <form action="{{route('tasks.destroy',$task->id)}}" method="post">
+                                        {{csrf_field()}}
+                                        {{method_field('DELETE')}}
+                                        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                                 @endforeach
                         </tbody>
+
                     </table>
+                    <div class="panel-body">
+                        <a href="{{route('tasks.create')}}" class="btn btn-success"><i class="fa fa-plus">Create new task</i></a>
+                    </div>
                 </div>
             </div>
         </div>
